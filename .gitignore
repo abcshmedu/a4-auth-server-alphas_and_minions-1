@@ -1,5 +1,12 @@
 .classpath
 .project
-.setting/
+.settings/
+*.class
+.idea/
+target/
 
-/target/
+.mtj.tmp/
+
+*.jar
+*.war
+*.ear
