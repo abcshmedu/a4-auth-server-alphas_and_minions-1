@@ -8,22 +8,16 @@ import edu.hm.shareit.auth.model.User;
 
 public class UserServiceImpl implements IUserService {
 
-	final IDatabase database;
+    private final IDatabase database;
 
 	public UserServiceImpl() {
 		
-		database = new DatabaseImpl();
+		this.database = new DatabaseImpl();
 	}
 //    public UserServiceImpl(final IDatabase database) {
 //        
 //    	this.database = database;
 //    }
-
-	@Override
-	public UserServiceResult addUser(final User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public UserServiceResult checkToken(final Integer token) {
@@ -38,5 +32,28 @@ public class UserServiceImpl implements IUserService {
 		
 		return result;
 	}
+
+    @Override
+    public UserServiceResult addUser(User user) {
+        
+        UserServiceResult result;
+        if (!database.isReserved(user.getUsername())) {
+            database.addUser(user);
+            //System.out.println("Service getSize "+ database.getSize()); debugging
+            result = UserServiceResult.OK;
+        } else {
+            result = UserServiceResult.USER_NAME_RESERVED;
+        }
+        
+        return result;
+    }
+
+
+    // just for testing
+    @Override
+    public String getUsers() {
+        
+        return database.getUsers();
+    }
 
 }

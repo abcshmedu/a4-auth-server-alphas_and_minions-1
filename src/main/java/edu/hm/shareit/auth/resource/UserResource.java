@@ -1,11 +1,15 @@
 package edu.hm.shareit.auth.resource;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +17,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 
+import edu.hm.shareit.auth.model.User;
 import edu.hm.shareit.auth.service.IUserService;
 import edu.hm.shareit.auth.service.UserServiceImpl;
 import edu.hm.shareit.auth.service.UserServiceResult;
@@ -63,7 +68,27 @@ public class UserResource {
     	
     	return Response.status(result.getErrorNum()).entity(jsonString).build();
     }
+    
+    @POST
+    @Path("users/register")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response addUser(User user) throws JsonProcessingException {
+        //System.out.println("here"); debugging
+        UserServiceResult result = service.addUser(user);
+        //System.out.println("getUsers in addUser from Resource" + getUsers());
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(UserServiceResult.getErrorMessage(result));
+        return Response.status(result.getErrorNum()).entity(jsonString).build();
+    }
 
     
+    @GET
+    @Path("users/register/admin")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getUsers() throws JsonProcessingException {
+        
+        return service.getUsers();
+    }
   
 }
