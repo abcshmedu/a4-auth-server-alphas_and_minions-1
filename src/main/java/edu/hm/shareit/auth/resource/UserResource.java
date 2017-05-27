@@ -67,7 +67,7 @@ public class UserResource {
     	
     	String jsonString = mapper.writeValueAsString(result.getErrorNum());
     	
-    	return Response.status(result.getErrorNum()).entity(jsonString).build();
+    	return Response.status(200).entity(jsonString).build();
     }
     
     @POST
@@ -79,8 +79,8 @@ public class UserResource {
         UserServiceResult result = service.addUser(user);
 
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(UserServiceResult.getErrorMessage(result));
-        return Response.status(result.getErrorNum()).entity(jsonString).build();
+        String jsonString = mapper.writeValueAsString(UserServiceResult.getMessage(result));
+        return Response.status(200).entity(jsonString).build();
     }
 
     

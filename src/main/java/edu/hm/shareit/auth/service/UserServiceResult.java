@@ -20,7 +20,7 @@ public enum UserServiceResult {
 		return errorNum;
 	}
 	
-	public static String getErrorMessage(UserServiceResult result) {
+	public static String getMessage(UserServiceResult result) {
 	    String message = "";
 	    switch(result) {
 	    case OK:
