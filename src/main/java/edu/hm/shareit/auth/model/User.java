@@ -10,7 +10,7 @@ public class User {
 	private String forename;
 	private String surename;
 	private String username;
-	private String pwt;
+	private String pwd;
 	
 	public User() {
 	    
@@ -20,13 +20,13 @@ public class User {
 	 * @param forename
 	 * @param surename
 	 * @param username
-	 * @param pwt
+	 * @param pwd
 	 */
-	public User(final String forename, final String surename, final String username, final String pwt) {
+	public User(final String forename, final String surename, final String username, final String pwd) {
 		this.forename = forename;
 		this.surename = surename;
 		this.username = username;
-		this.setPwt(pwt);
+		this.setPwd(pwd);
 	}
 
 	/**
@@ -53,15 +53,21 @@ public class User {
     /**
      * @return the pwt
      */
-    public String getPwt() {
-        return pwt;
+    public String getPwd() {
+        return pwd;
     }
 
     /**
-     * @param pwt the pwt to set
+     * @param pwd the pwt to set
      */
-    public void setPwt(String pwt) {
-        this.pwt = pwt;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+    
+    @Override
+    public String toString() {
+    	
+    	return String.format("[ forename: %s, surename: %s, username: %s, password: %s ]", getForename(), getSurename(), getUsername(), getPwd());
     }
 	
 	

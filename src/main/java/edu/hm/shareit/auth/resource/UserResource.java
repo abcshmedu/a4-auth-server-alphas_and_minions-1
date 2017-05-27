@@ -3,6 +3,7 @@ package edu.hm.shareit.auth.resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -73,10 +74,10 @@ public class UserResource {
     @Path("users/register")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response addUser(User user) throws JsonProcessingException {
-        //System.out.println("here"); debugging
+    public Response addUser(final User user) throws JsonProcessingException {
+
         UserServiceResult result = service.addUser(user);
-        //System.out.println("getUsers in addUser from Resource" + getUsers());
+
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(UserServiceResult.getErrorMessage(result));
         return Response.status(result.getErrorNum()).entity(jsonString).build();

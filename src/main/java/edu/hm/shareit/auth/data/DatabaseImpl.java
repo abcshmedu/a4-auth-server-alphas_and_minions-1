@@ -9,28 +9,42 @@ import org.json.JSONObject;
 
 import edu.hm.shareit.auth.model.User;
 
+/**
+ * Simple Database.
+ * Note that users get stored two times. Bad!
+ * 
+ * @author Michael Eggers
+ * @author Rebecca Brydon
+ *
+ */
 public class DatabaseImpl implements IDatabase {
 
-	private static Map<String, User> username2user;
+	private static Map<String, User> username2user = new HashMap<>();
 	
-	private static Map<Integer, User> token2user;
-	private static int token = 1;
+	private static Map<Integer, User> token2user = new HashMap<>();
 	
-	// for testing purposes: hard coded user
-	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
+	private static int token = 0;
+	
+//	// for testing purposes: hard coded user
+//	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
+//	
+//	int dummy = initTests();
+//	
+//	int initTests() {
+//		username2user.put(testUser.getUsername(), testUser);
+//		token2user.put(token, testUser);
+//		
+//		return 42;
+//	}
+
 	
 	public DatabaseImpl() {
-		username2user = new HashMap<>();
-		token2user = new HashMap<>();
 		
-		// test
-		username2user.put(testUser.getUsername(), testUser);
-		token2user.put(token, testUser);
 	}
 	
 	@Override
 	public Optional<User> getUser(final String username) {
-	    User user = username2user.get(username);
+	    final User user = username2user.get(username);
 	    Optional<User> result = Optional.empty();
 	    if (user != null) {
 	        result = Optional.of(user);
@@ -48,7 +62,7 @@ public class DatabaseImpl implements IDatabase {
 	}
 
 	@Override
-	public Optional<User> checkToken(final Integer token) {
+	public Optional<User> checkToken(final int token) {
 		
 		Optional<User> result = Optional.empty();
 		
@@ -56,22 +70,22 @@ public class DatabaseImpl implements IDatabase {
 			result = Optional.of(token2user.get(token));
 		}
 		
+		//System.out.println("check Token method: User: " + result.get());
 		return result;
 	}
 
     @Override
-    public void addUser(User user) {
-        String usernames = "";
-        //System.out.println(username2user.size());
-        username2user.put(user.getUsername(), user);
-        token2user.put(++token, user);
-        
-        // debugging
-//        System.out.println(username2user.size());
-//        for (Map.Entry<String, User> entry : username2user.entrySet()) {
-//            usernames += " " + entry.getKey();
-//        }
-//        System.out.println(usernames);
+    public boolean addUser(final User user) {
+    	boolean result = false;
+    	boolean found = username2user.containsKey(user.getUsername());
+    	
+    	if (!found) {
+    		username2user.put(user.getUsername(), user);
+    		token2user.put(++token, user);
+    		result = true;
+    	}
+    	
+    	return result;
     }
     
     public int getSize() {

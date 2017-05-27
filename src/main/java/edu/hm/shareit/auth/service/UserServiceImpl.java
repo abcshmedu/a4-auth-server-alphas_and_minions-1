@@ -34,15 +34,14 @@ public class UserServiceImpl implements IUserService {
 	}
 
     @Override
-    public UserServiceResult addUser(User user) {
+    public UserServiceResult addUser(final User user) {
         
-        UserServiceResult result;
-        if (!database.isReserved(user.getUsername())) {
-            database.addUser(user);
-            //System.out.println("Service getSize "+ database.getSize()); debugging
-            result = UserServiceResult.OK;
-        } else {
-            result = UserServiceResult.USER_NAME_RESERVED;
+        UserServiceResult result = UserServiceResult.OK;
+        
+        boolean isUserAdded = database.addUser(user);
+        
+        if (!isUserAdded) {
+        	result = UserServiceResult.USER_NAME_RESERVED;
         }
         
         return result;

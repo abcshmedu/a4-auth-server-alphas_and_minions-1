@@ -6,14 +6,24 @@ import edu.hm.shareit.auth.model.User;
 
 public interface IDatabase {
 
-	
+	/*
+	 * returns user according to username if available, empty otherwise.
+	 * only for internal purposes.
+	 */
 	public Optional<User> getUser(final String username);
 	
-	public Optional<User> checkToken(final Integer token);
-
+	/*
+	 * Returns user according to token, empty otherwise.
+	 * Used for other services to authenticate.
+	 */
+	public Optional<User> checkToken(final int token);
+	
     boolean isReserved(final String username);
     
-    public void addUser(User user);
+    /*
+     * Adds a new user if possible
+     */
+    public boolean addUser(final User user);
 
     
     // just for testing

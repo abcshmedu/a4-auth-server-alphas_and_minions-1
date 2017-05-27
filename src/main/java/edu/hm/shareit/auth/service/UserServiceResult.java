@@ -29,7 +29,7 @@ public enum UserServiceResult {
 	    case USER_NAME_RESERVED:
 	        message = "User name is reserved. Please chose a diffrent one.";
 	        break;
-	    default:
+	    case I_AM_A_TEAPOT:
 	        message = "I am a teapot.";
 	        break;
 	    }
