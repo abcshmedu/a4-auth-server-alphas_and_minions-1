@@ -10,7 +10,7 @@ public class UserServiceResultTest {
     public void errorMessageTest() {
         
         UserServiceResult result = UserServiceResult.OK;
-        assertTrue(UserServiceResult.getErrorMessage(result).equals("Ok."));
+        assertTrue(UserServiceResult.getMessage(result).equals("Ok."));
     }
         
 

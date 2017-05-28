@@ -2,6 +2,7 @@ package edu.hm.shareit.auth.data;
 
 import java.util.Optional;
 
+import edu.hm.shareit.auth.model.LoginDetails;
 import edu.hm.shareit.auth.model.User;
 
 public interface IDatabase {
@@ -29,5 +30,7 @@ public interface IDatabase {
     // just for testing
     public String getUsers();
 	public int getSize();
+
+    public boolean isValid(LoginDetails login);
 	
 }

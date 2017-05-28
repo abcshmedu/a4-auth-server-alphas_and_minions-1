@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.json.JSONObject;
 
+import edu.hm.shareit.auth.model.LoginDetails;
 import edu.hm.shareit.auth.model.User;
 
 /**
@@ -26,20 +27,20 @@ public class DatabaseImpl implements IDatabase {
 	private static int token = 0;
 	
 //	// for testing purposes: hard coded user
-//	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
+	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
 //	
-//	int dummy = initTests();
-//	
-//	int initTests() {
-//		username2user.put(testUser.getUsername(), testUser);
-//		token2user.put(token, testUser);
-//		
-//		return 42;
-//	}
+	int dummy = initTests();
+	
+	int initTests() {
+		username2user.put(testUser.getUsername(), testUser);
+		token2user.put(token, testUser);
+		
+		return 42;
+	}
 
 	
 	public DatabaseImpl() {
-		
+		initTests();
 	}
 	
 	@Override
@@ -105,6 +106,20 @@ public class DatabaseImpl implements IDatabase {
         
         
         return jsonString;
+    }
+
+    // NEW checks if login details exist and are valid
+    @Override
+    public boolean isValid(LoginDetails login) {
+        if (username2user.containsKey(login.getUsername())) {
+            User check = username2user.get(login.getUsername());
+            
+            if (check.getPwd().equals(login.getPassword())) {
+                return true;
+            }   
+        }
+
+        return false;
     }
     
 

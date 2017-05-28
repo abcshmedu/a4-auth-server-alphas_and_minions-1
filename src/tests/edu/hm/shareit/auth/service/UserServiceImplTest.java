@@ -17,7 +17,7 @@ public class UserServiceImplTest {
         
         UserServiceResult result = service.addUser(testUser2);
         
-        assertEquals("Ok.", UserServiceResult.getErrorMessage(result) );
+        assertEquals("Ok.", UserServiceResult.getMessage(result) );
         assertEquals(service.getUsers(), "\n{\"forename\":\"Frodo\",\"surename\":\"Baggins\",\"pwt\":\"gandalf\",\"username\":\"hobbington4ever\"}"
                 + "\n{\"forename\":\"Bilbo\",\"surename\":\"Baggins\",\"pwt\":\"frodo\",\"username\":\"baggins111\"}");
         

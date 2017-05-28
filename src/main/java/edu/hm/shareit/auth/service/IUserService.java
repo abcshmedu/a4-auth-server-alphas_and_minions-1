@@ -2,6 +2,7 @@ package edu.hm.shareit.auth.service;
 
 import java.util.Optional;
 
+import edu.hm.shareit.auth.model.LoginDetails;
 import edu.hm.shareit.auth.model.User;
 
 public interface IUserService {
@@ -12,6 +13,8 @@ public interface IUserService {
     String getUsers();
 
     UserServiceResult addUser(User user);
+
+    public UserServiceResult validateUser(LoginDetails login);
 	
 	
 }

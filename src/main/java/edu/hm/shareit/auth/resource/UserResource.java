@@ -1,6 +1,7 @@
 package edu.hm.shareit.auth.resource;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 
+import edu.hm.shareit.auth.model.LoginDetails;
 import edu.hm.shareit.auth.model.User;
 import edu.hm.shareit.auth.service.IUserService;
 import edu.hm.shareit.auth.service.UserServiceImpl;
@@ -84,12 +86,27 @@ public class UserResource {
     }
 
     
+    // only for testing admin rights needed
     @GET
     @Path("users/register/admin")
     @Produces(MediaType.TEXT_PLAIN)
     public String getUsers() throws JsonProcessingException {
         
         return service.getUsers();
+    }
+    
+    // NEW validates user
+    @POST
+    @Path("users/login")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response validateUser(LoginDetails login) throws JsonProcessingException {
+        
+        UserServiceResult result = service.validateUser(login);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(UserServiceResult.getMessage(result));
+        return Response.status(200).entity(jsonString).build();
     }
   
 }
