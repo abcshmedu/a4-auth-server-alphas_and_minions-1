@@ -1,5 +1,9 @@
 package edu.hm.shareit.auth.resource;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Optional;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -10,8 +14,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.json.JSONObject;
+import org.junit.runners.Parameterized.Parameter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,7 +83,7 @@ public class UserResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response addUser(final User user) throws JsonProcessingException {
-
+        System.out.println("Auth says hi from addUser");
         UserServiceResult result = service.addUser(user);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -100,13 +106,19 @@ public class UserResource {
     @Path("users/login")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response validateUser(LoginDetails login) throws JsonProcessingException {
+    public Response validateUser(LoginDetails login) throws JsonProcessingException, URISyntaxException {
+        System.out.println("Auth says hello from validateUser.");
+        Optional<Integer> result = service.validateUser(login);
         
-        UserServiceResult result = service.validateUser(login);
+        String httpURI = "http://localhost:8080/shareit/media/";
+        int token = -1;
+        if (result.isPresent()) {
+            token = result.get();
+        }
         
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(UserServiceResult.getMessage(result));
-        return Response.status(200).entity(jsonString).build();
+        httpURI += token;
+        URI redirectURI = new URI(httpURI);
+        return Response.temporaryRedirect(redirectURI).build();
     }
   
 }

@@ -58,15 +58,9 @@ public class UserServiceImpl implements IUserService {
 
     // NEW validates user login.
     @Override
-    public UserServiceResult validateUser(LoginDetails login) {
+    public Optional<Integer> validateUser(LoginDetails login) {
         
-        UserServiceResult result = UserServiceResult.OK;
-        
-        boolean isUserValid = database.isValid(login);
-        
-        if (!isUserValid) {
-            result = UserServiceResult.I_AM_A_TEAPOT;
-        }
+        Optional<Integer> result = database.isValid(login);
         
         return result;
     }

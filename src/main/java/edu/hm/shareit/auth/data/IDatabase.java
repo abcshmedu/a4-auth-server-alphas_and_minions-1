@@ -31,6 +31,6 @@ public interface IDatabase {
     public String getUsers();
 	public int getSize();
 
-    public boolean isValid(LoginDetails login);
+    public Optional<Integer> isValid(LoginDetails login);
 	
 }

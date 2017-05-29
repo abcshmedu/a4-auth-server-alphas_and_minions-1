@@ -3,6 +3,7 @@ package edu.hm.shareit.auth.data;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.json.JSONObject;
@@ -107,19 +108,35 @@ public class DatabaseImpl implements IDatabase {
         
         return jsonString;
     }
+    
+    // NEW
+    private Optional<Integer> getToken4User(User user){
+        Optional result = Optional.empty();
+        for (Entry<Integer, User> entry : token2user.entrySet()) {
+            if (entry.getValue() == user) {
+                result = Optional.of(entry.getKey());
+                return result;
+            }
+        }
+        return result;
+    }
 
     // NEW checks if login details exist and are valid
     @Override
-    public boolean isValid(LoginDetails login) {
+    public Optional<Integer> isValid(LoginDetails login) {
+        
+        Optional<Integer> result = Optional.empty();
         if (username2user.containsKey(login.getUsername())) {
             User check = username2user.get(login.getUsername());
-            
             if (check.getPwd().equals(login.getPassword())) {
-                return true;
-            }   
+                
+                Optional<Integer> token = getToken4User(check);
+                if (token.isPresent()) {
+                    result = Optional.of(token.get());
+                }
+            }
         }
-
-        return false;
+        return result;
     }
     
 

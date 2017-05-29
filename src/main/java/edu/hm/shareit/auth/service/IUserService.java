@@ -14,7 +14,7 @@ public interface IUserService {
 
     UserServiceResult addUser(User user);
 
-    public UserServiceResult validateUser(LoginDetails login);
+    public Optional<Integer> validateUser(LoginDetails login);
 	
 	
 }
