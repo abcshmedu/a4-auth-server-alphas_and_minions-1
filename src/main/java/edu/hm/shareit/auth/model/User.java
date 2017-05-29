@@ -65,6 +65,18 @@ public class User {
     }
     
     @Override
+    public boolean equals(final Object obj) {
+    	final User user = (User)obj;
+    	boolean result = true;
+    	
+    	if (getUsername() != user.getUsername()) {
+    		return result = false;
+    	}
+    	
+    	return result;
+    }
+    
+    @Override
     public String toString() {
     	
     	return String.format("[ forename: %s, surename: %s, username: %s, password: %s ]", getForename(), getSurename(), getUsername(), getPwd());

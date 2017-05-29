@@ -113,7 +113,7 @@ public class DatabaseImpl implements IDatabase {
     private Optional<Integer> getToken4User(User user){
         Optional result = Optional.empty();
         for (Entry<Integer, User> entry : token2user.entrySet()) {
-            if (entry.getValue() == user) {
+            if (entry.getValue().equals(user)) {
                 result = Optional.of(entry.getKey());
                 return result;
             }
