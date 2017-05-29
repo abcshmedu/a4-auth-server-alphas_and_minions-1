@@ -110,15 +110,17 @@ public class UserResource {
         System.out.println("Auth says hello from validateUser.");
         Optional<Integer> result = service.validateUser(login);
         
-        String httpURI = "http://localhost:8080/shareit/media/";
+        String httpURI = "http://localhost:8080/";
         int token = -1;
         if (result.isPresent()) {
             token = result.get();
         }
         
-        httpURI += token;
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(token);
+        
         URI redirectURI = new URI(httpURI);
-        return Response.temporaryRedirect(redirectURI).build();
+        return Response.temporaryRedirect(redirectURI).entity(jsonString).build();
     }
   
 }
