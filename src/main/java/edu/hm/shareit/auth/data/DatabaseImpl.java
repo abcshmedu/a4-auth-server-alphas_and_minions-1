@@ -28,20 +28,20 @@ public class DatabaseImpl implements IDatabase {
 	private static int token = 0;
 	
 //	// for testing purposes: hard coded user
-	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
+//	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
+////	
+//	int dummy = initTests();
 //	
-	int dummy = initTests();
-	
-	int initTests() {
-		username2user.put(testUser.getUsername(), testUser);
-		token2user.put(token, testUser);
-		
-		return 42;
-	}
+//	int initTests() {
+//		username2user.put(testUser.getUsername(), testUser);
+//		token2user.put(token, testUser);
+//		
+//		return 42;
+//	}
 
 	
 	public DatabaseImpl() {
-		initTests();
+		// initTests();
 	}
 	
 	@Override
