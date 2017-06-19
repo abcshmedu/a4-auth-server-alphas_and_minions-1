@@ -15,10 +15,6 @@ public class UserServiceImpl implements IUserService {
 		
 		this.database = new DatabaseImpl();
 	}
-//    public UserServiceImpl(final IDatabase database) {
-//        
-//    	this.database = database;
-//    }
 
 	@Override
 	public UserServiceResult checkToken(final Integer token) {

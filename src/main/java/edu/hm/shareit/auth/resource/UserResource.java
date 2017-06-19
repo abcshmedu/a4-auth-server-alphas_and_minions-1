@@ -120,7 +120,7 @@ public class UserResource {
         String jsonString = mapper.writeValueAsString(token);
         
         URI redirectURI = new URI(httpURI);
-        return Response.temporaryRedirect(redirectURI).entity(jsonString).build();
+        return Response.temporaryRedirect(redirectURI).entity(jsonString).status(200).build();
     }
   
 }

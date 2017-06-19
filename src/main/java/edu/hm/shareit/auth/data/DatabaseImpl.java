@@ -71,8 +71,7 @@ public class DatabaseImpl implements IDatabase {
 		if (token2user.containsKey(token)) {
 			result = Optional.of(token2user.get(token));
 		}
-		
-		//System.out.println("check Token method: User: " + result.get());
+
 		return result;
 	}
 
@@ -99,7 +98,7 @@ public class DatabaseImpl implements IDatabase {
         
         String usernames = "";
         String jsonString = "";
-        System.out.println("size in getUsers called from Resource "+ username2user.size());
+        System.out.println("Number of users="+ username2user.size());
         for (Map.Entry<String, User> entry : username2user.entrySet()) {
             usernames += " " + entry.getKey();
             jsonString += "\n" + new JSONObject(entry.getValue()).toString();
