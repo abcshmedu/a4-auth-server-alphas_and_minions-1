@@ -13,12 +13,19 @@ public interface IDatabase {
 	 */
 	public Optional<User> getUser(final String username);
 	
-	/*
+	/**
 	 * Returns user according to token, empty otherwise.
-	 * Used for other services to authenticate.
+     * Used for other services to authenticate.
+	 * @param token
+	 * @return
 	 */
 	public Optional<User> checkToken(final int token);
 	
+    /**
+     * checks if username is reserved
+     * @param username
+     * @return
+     */
     boolean isReserved(final String username);
     
     /*
@@ -26,11 +33,11 @@ public interface IDatabase {
      */
     public boolean addUser(final User user);
 
-    
-    // just for testing
-    public String getUsers();
-	public int getSize();
-
+    /**
+     * checks if login is valid
+     * @param login
+     * @return
+     */
     public Optional<Integer> isValid(LoginDetails login);
 	
 }

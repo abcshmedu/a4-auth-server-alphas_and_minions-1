@@ -26,22 +26,8 @@ public class DatabaseImpl implements IDatabase {
 	private static Map<Integer, User> token2user = new HashMap<>();
 	
 	private static int token = 0;
-	
-//	// for testing purposes: hard coded user
-//	private final User testUser = new User("Bilbo", "Baggins", "baggins111", "frodo");
-////	
-//	int dummy = initTests();
-//	
-//	int initTests() {
-//		username2user.put(testUser.getUsername(), testUser);
-//		token2user.put(token, testUser);
-//		
-//		return 42;
-//	}
 
-	
 	public DatabaseImpl() {
-		// initTests();
 	}
 	
 	@Override
@@ -93,24 +79,9 @@ public class DatabaseImpl implements IDatabase {
         return username2user.size();
     }
     
-    // just for testing 
-    public String getUsers() {
-        
-        String usernames = "";
-        String jsonString = "";
-        System.out.println("Number of users="+ username2user.size());
-        for (Map.Entry<String, User> entry : username2user.entrySet()) {
-            usernames += " " + entry.getKey();
-            jsonString += "\n" + new JSONObject(entry.getValue()).toString();
-        }
-        
-        
-        return jsonString;
-    }
-    
     // NEW
     private Optional<Integer> getToken4User(User user){
-        Optional result = Optional.empty();
+        Optional<Integer> result = Optional.empty();
         for (Entry<Integer, User> entry : token2user.entrySet()) {
             if (entry.getValue().equals(user)) {
                 result = Optional.of(entry.getKey());

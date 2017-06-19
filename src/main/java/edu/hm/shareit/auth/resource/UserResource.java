@@ -44,10 +44,6 @@ public class UserResource {
 		service = new UserServiceImpl();
 	}
 	
-//	public UserResource(final IUserService service) {
-//		
-//		this.service = service;
-//	}
 
     public IUserService getService() {
 		return service;
@@ -83,31 +79,18 @@ public class UserResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response addUser(final User user) throws JsonProcessingException {
-        System.out.println("Auth says hi from addUser");
         UserServiceResult result = service.addUser(user);
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(UserServiceResult.getMessage(result));
         return Response.status(200).entity(jsonString).build();
     }
-
     
-    // only for testing admin rights needed
-    @GET
-    @Path("users/register/admin")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getUsers() throws JsonProcessingException {
-        
-        return service.getUsers();
-    }
-    
-    // NEW validates user
     @POST
     @Path("users/login")
     @Consumes("application/json")
     @Produces("application/json")
     public Response validateUser(LoginDetails login) throws JsonProcessingException, URISyntaxException {
-        System.out.println("Auth says hello from validateUser.");
         Optional<Integer> result = service.validateUser(login);
         
         String httpURI = "http://localhost:8080/";

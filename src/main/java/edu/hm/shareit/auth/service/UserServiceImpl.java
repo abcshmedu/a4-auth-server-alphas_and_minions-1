@@ -44,15 +44,6 @@ public class UserServiceImpl implements IUserService {
         return result;
     }
 
-
-    // just for testing
-    @Override
-    public String getUsers() {
-        
-        return database.getUsers();
-    }
-
-    // NEW validates user login.
     @Override
     public Optional<Integer> validateUser(LoginDetails login) {
         
